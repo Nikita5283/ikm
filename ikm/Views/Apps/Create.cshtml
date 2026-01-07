@@ -1,0 +1,32 @@
+﻿@model ikm.Models.App
+
+@{
+    ViewData["Title"] = "Создание";
+}
+
+<h1>Добавить приложение</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ProcessName" class="control-label">Имя процесса (например, chrome.exe)</label>
+                <input asp-for="ProcessName" class="form-control" />
+                <span asp-validation-for="ProcessName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="BaseName" class="control-label">Название программы</label>
+                <input asp-for="BaseName" class="form-control" />
+                <span asp-validation-for="BaseName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-secondary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>

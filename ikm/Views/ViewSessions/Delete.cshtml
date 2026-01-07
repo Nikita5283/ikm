@@ -1,0 +1,53 @@
+﻿@model ikm.Models.ViewSession
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h1>Удаление</h1>
+<h3>Вы уверены, что хотите удалить эту запись?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Дата начала
+        </dt>
+        <dd class="col-sm-9">
+            @Model.ActivationDate.ToShortDateString()
+        </dd>
+
+        <dt class="col-sm-3">
+            Время начала
+        </dt>
+        <dd class="col-sm-9">
+            @Model.ActivationTime
+        </dd>
+
+        <dt class="col-sm-3">
+            Видео
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Video.Title)
+        </dd>
+
+        <dt class="col-sm-3">
+            Платформа
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Domain)
+        </dd>
+
+        <dt class="col-sm-3">
+            Длительность (сек)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ViewingTime)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ViewId" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> 
+        <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

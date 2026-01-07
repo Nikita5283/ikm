@@ -1,0 +1,64 @@
+﻿@model ikm.Models.ViewSession
+
+@{
+    ViewData["Title"] = "Редактирование";
+}
+
+<h1>Редактирование записи</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="ViewId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="ActivationDate" class="control-label"></label>
+                <input asp-for="ActivationDate" type="date" class="form-control" />
+                <span asp-validation-for="ActivationDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ActivationTime" class="control-label"></label>
+                <input asp-for="ActivationTime" type="time" class="form-control" />
+                <span asp-validation-for="ActivationTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ShutdownDate" class="control-label"></label>
+                <input asp-for="ShutdownDate" type="date" class="form-control" />
+                <span asp-validation-for="ShutdownDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ShutdownTime" class="control-label"></label>
+                <input asp-for="ShutdownTime" type="time" class="form-control" />
+                <span asp-validation-for="ShutdownTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="VideoId" class="control-label">Видео</label>
+                <select asp-for="VideoId" class="form-control" asp-items="ViewBag.VideoId"></select>
+                <span asp-validation-for="VideoId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Domain" class="control-label">Платформа</label>
+                <select asp-for="Domain" class="form-control" asp-items="ViewBag.Domain"></select>
+                <span asp-validation-for="Domain" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ViewingTime" class="control-label"></label>
+                <input asp-for="ViewingTime" class="form-control" />
+                <span asp-validation-for="ViewingTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>
