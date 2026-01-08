@@ -42,6 +42,12 @@ namespace ikm.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (await _context.Apps.AnyAsync(a => a.ProcessName == app.ProcessName))
+                {
+                    ModelState.AddModelError("ProcessName", "Такое приложение уже существует");
+                    return View(app);
+                }
+
                 _context.Add(app);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -55,10 +61,8 @@ namespace ikm.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null) return NotFound();
-
             var app = await _context.Apps.FindAsync(id);
             if (app == null) return NotFound();
-
             return View(app);
         }
 
@@ -69,21 +73,44 @@ namespace ikm.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, App app)
         {
-            if (id != app.ProcessName) return NotFound();
-
-            if (ModelState.IsValid)
+            // Если ID изменился (пользователь поменял ProcessName)
+            if (id != app.ProcessName)
             {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(app);
-                    await _context.SaveChangesAsync();
+                    try
+                    {
+                        // Прямой SQL запрос для обновления PK
+                        // Также обновляем BaseName
+                        await _context.Database.ExecuteSqlRawAsync(
+                            "UPDATE apps SET process_name = {0}, base_name = {1} WHERE process_name = {2}",
+                            app.ProcessName, app.BaseName ?? (object)DBNull.Value, id);
+
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "Ошибка обновления: " + ex.Message);
+                    }
                 }
-                catch (DbUpdateConcurrencyException)
+            }
+            else
+            {
+                // Стандартное обновление, если ключ не меняли
+                if (ModelState.IsValid)
                 {
-                    if (!_context.Apps.Any(e => e.ProcessName == id)) return NotFound();
-                    else throw;
+                    try
+                    {
+                        _context.Update(app);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!_context.Apps.Any(e => e.ProcessName == app.ProcessName)) return NotFound();
+                        else throw;
+                    }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(app);
         }
@@ -94,10 +121,8 @@ namespace ikm.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null) return NotFound();
-
             var app = await _context.Apps.FirstOrDefaultAsync(m => m.ProcessName == id);
             if (app == null) return NotFound();
-
             return View(app);
         }
 

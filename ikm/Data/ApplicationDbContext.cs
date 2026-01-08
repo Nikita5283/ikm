@@ -27,8 +27,9 @@ namespace ikm.Data
             modelBuilder.Entity<AppSession>()
                 .HasOne(s => s.App)
                 .WithMany(a => a.AppSessions)
-                .HasForeignKey(s => s.ProcessName);
-            
+                .HasForeignKey(s => s.ProcessName)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             // 2. Связи для PageSession (Сессии веб-страниц)
             modelBuilder.Entity<PageSession>(entity =>
@@ -36,12 +37,14 @@ namespace ikm.Data
                 // Связь с таблицей Sites (по домену)
                 entity.HasOne(ps => ps.Site)
                     .WithMany(p => p.PageSessions)
-                    .HasForeignKey(ps => ps.Domain);
+                    .HasForeignKey(ps => ps.Domain)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 // Связь с таблицей Apps (браузер)
                 entity.HasOne(ps => ps.Browser)
                     .WithMany(p => p.PageSessions)
-                    .HasForeignKey(ps => ps.BrowserName);
+                    .HasForeignKey(ps => ps.BrowserName)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // 3. Связи для ViewSession (Просмотры YouTube)
@@ -50,12 +53,14 @@ namespace ikm.Data
                 // Связь с видео
                 entity.HasOne(vs => vs.Video)
                     .WithMany(v => v.ViewSessions)
-                    .HasForeignKey(vs => vs.VideoId);
+                    .HasForeignKey(vs => vs.VideoId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 // Связь с сайтом
                 entity.HasOne(vs => vs.Site)
                     .WithMany(v => v.ViewSessions)
-                    .HasForeignKey(vs => vs.Domain);
+                    .HasForeignKey(vs => vs.Domain)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             base.OnModelCreating(modelBuilder);

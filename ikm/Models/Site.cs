@@ -13,7 +13,7 @@ namespace ikm.Models
         [Key]
         [Column("domain")]
         [Display(Name = "Домен")]
-        [Required(ErrorMessage = "Имя домена обязательно")]
+        [Required(ErrorMessage = "Домен обязателен")]
         public string Domain { get; set; }
 
         // Навигационные свойства для связей

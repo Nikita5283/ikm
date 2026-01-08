@@ -43,6 +43,13 @@ namespace ikm.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Проверка на дубликаты
+                if (await _context.Sites.AnyAsync(s => s.Domain == site.Domain))
+                {
+                    ModelState.AddModelError("Domain", "Такой домен уже существует");
+                    return View(site);
+                }
+
                 _context.Add(site);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -56,10 +63,8 @@ namespace ikm.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null) return NotFound();
-
             var site = await _context.Sites.FindAsync(id);
             if (site == null) return NotFound();
-
             return View(site);
         }
 
@@ -70,21 +75,36 @@ namespace ikm.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, Site site)
         {
-            if (id != site.Domain) return NotFound();
-
-            if (ModelState.IsValid)
+            if (id != site.Domain)
             {
-                try
+                // Если пользователь поменял имя домена
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        // EF Core не умеет менять Primary Key через Update. 
+                        // Делаем это через SQL. PostgreSQL сам обновит связи (CASCADE)
+                        await _context.Database.ExecuteSqlRawAsync(
+                            "UPDATE sites SET domain = {0} WHERE domain = {1}",
+                            site.Domain, id);
+
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "Ошибка при переименовании: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                // Если имя не менялось, просто сохраняем (на случай, если добавятся другие поля)
+                if (ModelState.IsValid)
                 {
                     _context.Update(site);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Sites.Any(e => e.Domain == id)) return NotFound();
-                    else throw;
-                }
-                return RedirectToAction(nameof(Index));
             }
             return View(site);
         }
@@ -95,10 +115,8 @@ namespace ikm.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null) return NotFound();
-
             var site = await _context.Sites.FirstOrDefaultAsync(m => m.Domain == id);
             if (site == null) return NotFound();
-
             return View(site);
         }
 

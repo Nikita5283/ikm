@@ -1,4 +1,4 @@
-﻿@model ikm.Models.App
+﻿@model ikm.Models.Site
 
 @{
     ViewData["Title"] = "Редактирование";
@@ -12,14 +12,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group mb-3">
-                <label asp-for="ProcessName" class="control-label">Процесс</label>
-                <input asp-for="ProcessName" class="form-control" />
-                <span asp-validation-for="ProcessName" class="text-danger"></span>
-
-            <div class="form-group mb-3">
-                <label asp-for="BaseName" class="control-label">Название программы</label>
-                <input asp-for="BaseName" class="form-control" />
-                <span asp-validation-for="BaseName" class="text-danger"></span>
+                <label asp-for="Domain" class="control-label">Домен</label>
+                <input asp-for="Domain" class="form-control" />
+                <span asp-validation-for="Domain" class="text-danger"></span>
             </div>
 
             <div class="form-group">

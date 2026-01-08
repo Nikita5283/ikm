@@ -16,14 +16,16 @@ namespace ikm.Models
         public int SessionId { get; set; }
 
         [Column("activation_date")]
+        [Required(ErrorMessage = "Дата открытия обязательна")]
         [Display(Name = "Дата открытия")]
         [DataType(DataType.Date)]
-        public DateOnly ActivationDate { get; set; }
+        public DateOnly? ActivationDate { get; set; }
 
         [Column("activation_time")]
+        [Required(ErrorMessage = "Время открытия обязательно")]
         [Display(Name = "Время открытия")]
         [DataType(DataType.Time)]
-        public TimeOnly ActivationTime { get; set; }
+        public TimeOnly? ActivationTime { get; set; }
 
         [Column("shutdown_date")]
         [Display(Name = "Дата закрытия")]
@@ -43,7 +45,7 @@ namespace ikm.Models
         // связь 1: Сайт (Domain)
 
         [Column("domain")]
-        [Required]
+        [Required(ErrorMessage = "Выберите сайт")]
         [Display(Name = "Домен сайта")]
         public string Domain { get; set; } // Поле для внешнего ключа
 
@@ -54,8 +56,8 @@ namespace ikm.Models
         // связь 2: Браузер (App)
 
         [Column("browser_name")]
-        [Required]
-        [Display(Name = "Имя процесса браузера")]
+        [Required(ErrorMessage = "Выберите браузер")]
+        [Display(Name = "Название браузера")]
         public string BrowserName { get; set; } // Поле для внешнего ключа
 
         [ForeignKey("BrowserName")]
