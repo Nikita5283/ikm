@@ -16,14 +16,16 @@ namespace ikm.Models
         public int ViewId { get; set; }
 
         [Column("activation_date")]
+        [Required(ErrorMessage = "Дата начала обязательна")]
         [Display(Name = "Дата начала")]
         [DataType(DataType.Date)]
-        public DateOnly ActivationDate { get; set; }
+        public DateOnly? ActivationDate { get; set; }
 
         [Column("activation_time")]
+        [Required(ErrorMessage = "Время начала обязательно")]
         [Display(Name = "Время начала")]
         [DataType(DataType.Time)]
-        public TimeOnly ActivationTime { get; set; }
+        public TimeOnly? ActivationTime { get; set; }
 
         [Column("shutdown_date")]
         [Display(Name = "Дата окончания")]
@@ -42,18 +44,18 @@ namespace ikm.Models
         // --- СВЯЗЬ 1: Видео (YoutubeVideo) ---
 
         [Column("video_id")]
-        [Required]
+        [Required(ErrorMessage = "Выберите видео")]
         [Display(Name = "ID Видео")]
         public string VideoId { get; set; } // Внешний ключ
         [ForeignKey("VideoId")]
 
         [Display(Name = "Видео")]
-        public YoutubeVideo? Video { get; set; } // Навигационное свойство
+        public Video? Video { get; set; } // Навигационное свойство
 
         // --- СВЯЗЬ 2: Сайт (Domain) ---
 
         [Column("domain")]
-        [Required]
+        [Required(ErrorMessage = "Выберите домен")]
         [Display(Name = "Домен")]
         public string Domain { get; set; } // Внешний ключ
 

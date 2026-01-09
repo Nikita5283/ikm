@@ -1,4 +1,4 @@
-﻿@model ikm.Models.PageSession
+﻿@model ikm.Models.AppSession
 
 @{
     ViewData["Title"] = "Создание";
@@ -36,25 +36,17 @@
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="PageTitle" class="control-label"></label>
-                <input asp-for="PageTitle" class="form-control" />
-                <span asp-validation-for="PageTitle" class="text-danger"></span>
+                <label asp-for="ProcessName" class="control-label"></label>
+                <select asp-for="ProcessName" class="form-control" asp-items="ViewBag.ProcessName">
+                    <option value="">Выберите приложение</option>
+                </select>
+                <span asp-validation-for="ProcessName" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="BrowserName" class="control-label">Браузер</label>
-                <select asp-for="BrowserName" class="form-control" asp-items="ViewBag.BrowserName">
-                    <option value="">Выберите браузер</option>
-                </select>
-                <span asp-validation-for="BrowserName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Domain" class="control-label">Домен сайта</label>
-                <select asp-for="Domain" class="form-control" asp-items="ViewBag.Domain">
-                    <option value="">Выберите сайт</option>
-                </select>
-                <span asp-validation-for="Domain" class="text-danger"></span>
+                <label asp-for="WindowTitle" class="control-label"></label>
+                <input asp-for="WindowTitle" class="form-control" />
+                <span asp-validation-for="WindowTitle" class="text-danger"></span>
             </div>
 
             <div class="form-group">

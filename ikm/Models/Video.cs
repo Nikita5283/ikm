@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ikm.Models
 {
     /// <summary>
-    /// Класс, описывающий видео с YouTube.
+    /// Класс, описывающий справочник видео.
     /// </summary>
-    [Table("youtube_videos")]
-    public class YoutubeVideo
+    [Table("videos")]
+    public class Video
     {
         [Key]
         [Column("video_id")]
@@ -15,18 +15,19 @@ namespace ikm.Models
         public string VideoId { get; set; }
 
         [Column("title")]
-        [Required]
+        [Required(ErrorMessage = "Название видео обязательно")]
         [Display(Name = "Название видео")]
         public string Title { get; set; }
 
         [Column("autor")]
-        [Required]
+        [Required(ErrorMessage = "Автор обязателен")]
         [Display(Name = "Автор")]
         public string Author { get; set; }
 
         [Column("video_duration")]
+        [Required(ErrorMessage = "Длительность видео обязательна")]
         [Display(Name = "Длительность (сек)")]
-        public int VideoDuration { get; set; }
+        public int? VideoDuration { get; set; }
 
         // Навигационные свойства для связей
         public ICollection<ViewSession>? ViewSessions { get; set; }

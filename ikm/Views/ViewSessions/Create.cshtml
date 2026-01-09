@@ -1,10 +1,10 @@
 ﻿@model ikm.Models.ViewSession
 
 @{
-    ViewData["Title"] = "Новый просмотр";
+    ViewData["Title"] = "Создание";
 }
 
-<h1>Добавить просмотр</h1>
+<h1>Добавить сессию</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -37,12 +37,18 @@
 
             <div class="form-group mb-3">
                 <label asp-for="VideoId" class="control-label">Видео</label>
-                <select asp-for="VideoId" class="form-control" asp-items="ViewBag.VideoId"></select>
+                <select asp-for="VideoId" class="form-control" asp-items="ViewBag.VideoId">
+                    <option value="">Выберите видео</option>
+                </select>
+                <span asp-validation-for="VideoId" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="Domain" class="control-label">Платформа</label>
-                <select asp-for="Domain" class="form-control" asp-items="ViewBag.Domain"></select>
+                <select asp-for="Domain" class="form-control" asp-items="ViewBag.Domain">
+                    <option value="">Выберите домен</option>
+                </select>
+                <span asp-validation-for="Domain" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">

@@ -35,9 +35,25 @@ namespace ikm.Controllers
         /// </summary>
         public IActionResult Create()
         {
-            // Загружаем списки для выпадающих меню (Dropdowns)
-            ViewData["VideoId"] = new SelectList(_context.YoutubeVideos, "VideoId", "Title");
-            ViewData["Domain"] = new SelectList(_context.Sites, "Domain", "Domain");
+            var yt_videos = _context.Videos.ToList();
+            var sites = _context.Sites.ToList();
+
+            // Проверяем наличие браузеров
+            if (!yt_videos.Any())
+            {
+                // Добавляем ошибку в состояние модели, чтобы она отобразилась во View
+                ModelState.AddModelError("BrowserName", "Нужно добавить хотя бы один браузер в справочник");
+            }
+
+            // Проверяем наличие сайтов
+            if (!sites.Any())
+            {
+                ModelState.AddModelError("Domain", "Нужно добавить хотя бы один сайт в справочник");
+            }
+
+            // Загружаем списки для выпадающих меню
+            ViewData["VideoId"] = new SelectList(yt_videos, "VideoId", "Title");
+            ViewData["Domain"] = new SelectList(sites, "Domain", "Domain");
             return View();
         }
 
@@ -56,7 +72,7 @@ namespace ikm.Controllers
                 return RedirectToAction(nameof(Index));
             }
             // Если ошибка, снова загружаем списки и показываем форму
-            ViewData["VideoId"] = new SelectList(_context.YoutubeVideos, "VideoId", "Title", viewSession.VideoId);
+            ViewData["VideoId"] = new SelectList(_context.Videos, "VideoId", "Title", viewSession.VideoId);
             ViewData["Domain"] = new SelectList(_context.Sites, "Domain", "Domain", viewSession.Domain);
             return View(viewSession);
         }
@@ -71,8 +87,8 @@ namespace ikm.Controllers
             var viewSession = await _context.ViewSessions.FindAsync(id);
             if (viewSession == null) return NotFound();
 
-            // ВАЖНО: Заполняем списки, чтобы они не были пустыми при открытии редактирования
-            ViewData["VideoId"] = new SelectList(_context.YoutubeVideos, "VideoId", "Title", viewSession.VideoId);
+            // Заполняем списки, чтобы они не были пустыми при открытии редактирования
+            ViewData["VideoId"] = new SelectList(_context.Videos, "VideoId", "Title", viewSession.VideoId);
             ViewData["Domain"] = new SelectList(_context.Sites, "Domain", "Domain", viewSession.Domain);
 
             return View(viewSession);
@@ -102,7 +118,7 @@ namespace ikm.Controllers
                 return RedirectToAction(nameof(Index));
             }
             // Восстанавливаем списки, если была ошибка валидации
-            ViewData["VideoId"] = new SelectList(_context.YoutubeVideos, "VideoId", "Title", viewSession.VideoId);
+            ViewData["VideoId"] = new SelectList(_context.Videos, "VideoId", "Title", viewSession.VideoId);
             ViewData["Domain"] = new SelectList(_context.Sites, "Domain", "Domain", viewSession.Domain);
             return View(viewSession);
         }

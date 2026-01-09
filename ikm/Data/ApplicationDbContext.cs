@@ -14,7 +14,7 @@ namespace ikm.Data
 
         public DbSet<App> Apps { get; set; }
         public DbSet<Site> Sites { get; set; }
-        public DbSet<YoutubeVideo> YoutubeVideos { get; set; }
+        public DbSet<Video> Videos { get; set; }
         public DbSet<PageSession> PageSessions { get; set; }
         public DbSet<AppSession> AppSessions { get; set; }
         public DbSet<ViewSession> ViewSessions { get; set; }

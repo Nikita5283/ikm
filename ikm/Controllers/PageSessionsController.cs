@@ -35,7 +35,7 @@ namespace ikm.Controllers
         /// </summary>
         public IActionResult Create()
         {
-            var browsers = _context.Apps
+            var browsers = _context.Apps.ToList()
                 .Where(a => a.ProcessName == "chrome.exe" || a.ProcessName == "msedge.exe" || a.ProcessName == "firefox.exe" || a.ProcessName == "yandex.exe");
             var sites = _context.Sites.ToList();
 
@@ -43,13 +43,13 @@ namespace ikm.Controllers
             if (!browsers.Any())
             {
                 // Добавляем ошибку в состояние модели, чтобы она отобразилась во View
-                ModelState.AddModelError("BrowserName", "Вы удалили все браузеры из справочника");
+                ModelState.AddModelError("BrowserName", "Нужно добавить хотя бы один браузер в справочник");
             }
 
             // Проверяем наличие сайтов
             if (!sites.Any())
             {
-                ModelState.AddModelError("Domain", "Вы удалили все сайты из справочника");
+                ModelState.AddModelError("Domain", "Нужно добавить хотя бы один сайт в справочник");
             }
 
             ViewData["BrowserName"] = new SelectList(browsers, "ProcessName", "BaseName");
