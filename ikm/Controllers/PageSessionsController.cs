@@ -11,8 +11,15 @@ namespace ikm.Controllers
     /// </summary>
     public class PageSessionsController : Controller
     {
+        /// <summary>
+        /// Поле контекста базы данных.
+        /// </summary>
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Конструктор контроллера с внедрением контекста базы данных.
+        /// </summary>
+        /// <param name="context">Контекст базы данных</param>
         public PageSessionsController(ApplicationDbContext context)
         {
             _context = context;

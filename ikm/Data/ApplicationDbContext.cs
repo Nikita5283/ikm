@@ -8,17 +8,48 @@ namespace ikm.Data
     /// </summary>
     public class ApplicationDbContext : DbContext
     {
+        /// <summary>
+        /// Конструктор контекста базы данных.
+        /// </summary>
+        /// <param name="options">Настройки подключения к бд</param>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
         }
 
+        /// <summary>
+        /// Таблица приложений.
+        /// </summary>
         public DbSet<App> Apps { get; set; }
+
+        /// <summary>
+        /// Таблица сайтов.
+        /// </summary>
         public DbSet<Site> Sites { get; set; }
+
+        /// <summary>
+        /// Таблица видео.
+        /// </summary>
         public DbSet<Video> Videos { get; set; }
+
+        /// <summary>
+        /// Таблица сессий веб-страниц.
+        /// </summary>
         public DbSet<PageSession> PageSessions { get; set; }
+
+        /// <summary>
+        /// Таблица сессий приложений.
+        /// </summary>
         public DbSet<AppSession> AppSessions { get; set; }
+
+        /// <summary>
+        /// Таблица просмотров видео.
+        /// </summary>
         public DbSet<ViewSession> ViewSessions { get; set; }
 
+        /// <summary>
+        /// Настройка модели данных и связей между сущностями.
+        /// </summary>
+        /// <param name="modelBuilder">Параметр для работы с моделью данных</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Настройка связей, если автоматическая не сработает

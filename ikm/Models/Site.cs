@@ -10,14 +10,23 @@ namespace ikm.Models
     [Table("sites")]
     public class Site
     {
+        /// <summary>
+        /// Домен сайта.
+        /// </summary>
         [Key]
         [Column("domain")]
         [Display(Name = "Домен")]
         [Required(ErrorMessage = "Домен обязателен")]
         public string Domain { get; set; }
 
-        // Навигационные свойства для связей
+        /// <summary>
+        /// Навигационное свойство для сессий просмотров.
+        /// </summary>
         public ICollection<ViewSession>? ViewSessions { get; set; }
+
+        /// <summary>
+        /// Навигационное свойство для сессий страниц.
+        /// </summary>
         public ICollection<PageSession>? PageSessions { get; set; }
     }
 }

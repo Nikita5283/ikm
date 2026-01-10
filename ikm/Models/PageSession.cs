@@ -11,39 +11,58 @@ namespace ikm.Models
     [Table("page_sessions")]
     public class PageSession
     {
+        /// <summary>
+        /// id сессии.
+        /// </summary>
         [Key]
         [Column("session_id")]
         public int SessionId { get; set; }
 
+        /// <summary>
+        /// Дата открытия страницы.
+        /// </summary>
         [Column("activation_date")]
         [Required(ErrorMessage = "Дата открытия обязательна")]
         [Display(Name = "Дата открытия")]
         [DataType(DataType.Date)]
         public DateOnly? ActivationDate { get; set; }
 
+        /// <summary>
+        /// Время открытия страницы.
+        /// </summary>
         [Column("activation_time")]
         [Required(ErrorMessage = "Время открытия обязательно")]
         [Display(Name = "Время открытия")]
         [DataType(DataType.Time)]
         public TimeOnly? ActivationTime { get; set; }
 
+        /// <summary>
+        /// Дата закрытия страницы.
+        /// </summary>
         [Column("shutdown_date")]
         [Display(Name = "Дата закрытия")]
         [DataType(DataType.Date)]
         public DateOnly? ShutdownDate { get; set; }
 
+        /// <summary>
+        /// Время закрытия страницы.
+        /// </summary>
         [Column("shutdown_time")]
         [Display(Name = "Время закрытия")]
         [DataType(DataType.Time)]
         public TimeOnly? ShutdownTime { get; set; }
 
+        /// <summary>
+        /// Заголовок страницы.
+        /// </summary>
         [Column("page_title")]
         [Required(ErrorMessage = "Заголовок страницы обязателен")]
         [Display(Name = "Заголовок страницы")]
         public string PageTitle { get; set; }
 
-        // связь 1: Сайт (Domain)
-
+        /// <summary>
+        /// Связь со справочником сайтов по домену.
+        /// </summary>
         [Column("domain")]
         [Required(ErrorMessage = "Выберите сайт")]
         [Display(Name = "Домен сайта")]
@@ -53,13 +72,17 @@ namespace ikm.Models
         [Display(Name = "Сайт")]
         public Site? Site { get; set; } // Навигационное свойство
 
-        // связь 2: Браузер (App)
-
+        /// <summary>
+        /// Название процесса браузера.
+        /// </summary>
         [Column("browser_name")]
         [Required(ErrorMessage = "Выберите браузер")]
         [Display(Name = "Название браузера")]
         public string BrowserName { get; set; } // Поле для внешнего ключа
 
+        /// <summary>
+        /// Связь со справочником приложений по названию процесса браузера.
+        /// </summary>
         [ForeignKey("BrowserName")]
         [Display(Name = "Браузер")]
         public App? Browser { get; set; } // Навигационное свойство

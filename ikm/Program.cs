@@ -3,8 +3,15 @@ using ikm.Data;
 
 namespace ikm
 {
+    /// <summary>
+    /// Главный класс программы.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Точка входа в приложение.
+        /// </summary>
+        /// <param name="args">Аргументы командной строки</param>
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

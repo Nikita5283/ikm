@@ -10,18 +10,29 @@ namespace ikm.Models
     [Table("apps")]
     public class App
     {
+        /// <summary>
+        /// Имя процесса приложения.
+        /// </summary>
         [Key]
         [Column("process_name")]
         [Display(Name = "Имя процесса")]
         [Required(ErrorMessage = "Имя процесса обязательно")]
         public string ProcessName { get; set; }
 
+        /// <summary>
+        /// Название приложения.
+        /// </summary>
         [Column("base_name")]
         [Display(Name = "Название приложения")]
         public string? BaseName { get; set; }
 
-        // Навигационные свойства для связей
+        /// <summary>
+        /// Навигационное свойство для связи с сессиями приложений.
+        /// </summary>
         public ICollection<AppSession>? AppSessions { get; set; }
+        /// <summary>
+        /// Навигационное свойство для связи с сессиями страниц.
+        /// </summary>
         public ICollection<PageSession>? PageSessions { get; set; }
     }
 }

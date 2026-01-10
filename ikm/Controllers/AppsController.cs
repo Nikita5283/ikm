@@ -10,8 +10,15 @@ namespace ikm.Controllers
     /// </summary>
     public class AppsController : Controller
     {
+        /// <summary>
+        /// Поле контекста базы данных.
+        /// </summary>
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Конструктор контроллера с внедрением контекста базы данных.
+        /// </summary>
+        /// <param name="context">Контекст базы данных</param>
         public AppsController(ApplicationDbContext context)
         {
             _context = context;
@@ -36,6 +43,7 @@ namespace ikm.Controllers
         /// <summary>
         /// Сохраняет новую запись в БД.
         /// </summary>
+        /// <param name="app">Объект приложения для создания</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(App app)
