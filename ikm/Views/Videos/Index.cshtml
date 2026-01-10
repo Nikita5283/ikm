@@ -31,12 +31,14 @@
                 <td>@Html.DisplayFor(modelItem => item.Author)</td>
                 <td>@Html.DisplayFor(modelItem => item.VideoDuration)</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.VideoId" class="btn btn-primary btn-sm" title="Редактировать">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                    <a asp-action="Delete" asp-route-id="@item.VideoId" class="btn btn-danger btn-sm" title="Удалить">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
+                    <div class="d-flex gap-2">
+                        <a asp-action="Edit" asp-route-id="@item.VideoId" class="btn-table-edit" title="Редактировать">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.VideoId" class="btn-table-delete" title="Удалить">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
         }

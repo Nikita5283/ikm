@@ -1,26 +1,3 @@
-/*html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem var(--bs-body-bg), 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}*/
-
 html, body {
   height: 100%; /* ¬ажно дл€ бокового меню */
 }
@@ -52,4 +29,35 @@ html, body {
 .dashboard-card:hover {
     transform: translateY(-5px);
     cursor: pointer;
+}
+
+/* Ѕазовый стиль дл€ кнопок-ссылок в таблице */
+.btn-table-edit, .btn-table-delete {
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    /* »спользуем стандартный цвет текста темы */
+    color: var(--bs-body-color);
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Ёффект при наведении дл€ –едактировани€ (—иний) */
+.btn-table-edit:hover {
+    color: #fff !important;
+    background-color: #0d6efd; /* Bootstrap primary */
+    border-color: #0d6efd;
+}
+
+/* Ёффект при наведении дл€ ”далени€ ( расный) */
+.btn-table-delete:hover {
+    color: #fff !important;
+    background-color: #dc3545; /* Bootstrap danger */
+    border-color: #dc3545;
+}
+
+/* ≈сли вы используете иконки внутри кнопок */
+.btn-table-edit i, .btn-table-delete i {
+    margin-right: 3px;
 }

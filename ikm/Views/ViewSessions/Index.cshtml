@@ -4,7 +4,7 @@
     ViewData["Title"] = "Просмотры видео";
 }
 
-<h1>Сессии просмотров видео</h1>
+<h1>Просмотры видео</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">
@@ -37,12 +37,14 @@
                 <td>@Html.DisplayFor(modelItem => item.Domain)</td>
                 <td>@Html.DisplayFor(modelItem => item.ViewingTime)</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ViewId" class="btn btn-primary btn-sm" title="Редактировать">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                    <a asp-action="Delete" asp-route-id="@item.ViewId" class="btn btn-danger btn-sm" title="Удалить">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
+                    <div class="d-flex gap-2">
+                        <a asp-action="Edit" asp-route-id="@item.ViewId" class="btn-table-edit" title="Редактировать">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.ViewId" class="btn-table-delete" title="Удалить">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
         }
